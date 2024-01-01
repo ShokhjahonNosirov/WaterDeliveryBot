@@ -67,3 +67,4 @@ async def answer_phone(message: types.Message, state: FSMContext):
 
     # 3-variant. Ma`lumotlarni saqlab qolgan holda
     # await state.reset_state(with_data=False)
+
