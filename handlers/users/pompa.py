@@ -10,7 +10,7 @@ from states.pompaState import PompaState
 from loader import dp
 
 
-@dp.message_handler(text='Pompa', state=None)
+@dp.message_handler(text='🅿️ Pompa', state=None)
 async def send_link(message: Message):
     photo_id_pompa = 'AgACAgIAAxkBAAIKXmKsCA7FDKwjS28OBETTWs4NjVgiAAJZwDEbdsZgScLNBahtZn_LAQADAgADcwADJAQ'
     await message.answer_photo(photo_id_pompa, caption="*Elektron pompa* \n\nNarxi: 70000.00 so'm \n\n🔻Mahsulot haqida:\n✅USB quvvatlagich\n✅ Foydalanishga qulay \n✅ Navoiy bo'ylab yetkazib berish bepul.", parse_mode='Markdown', reply_markup = menuPompa)
