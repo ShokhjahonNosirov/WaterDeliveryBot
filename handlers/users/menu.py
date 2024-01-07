@@ -5,7 +5,7 @@ from keyboards.default.productKeyboard import menuProduct
 from keyboards.default.suvKeyboard import menuSuv
 from states.personalData import PersonalData
 
-from loader import dp
+from loader import dp, db
 
 @dp.message_handler(Command("menu"))
 async def show_menu(message: Message):
@@ -27,12 +27,6 @@ async def send_link(message: Message):
 async def send_link(message: Message):
     await message.answer("Instagram: shifosuv\nFacebook: shifosuv uz\nWebsite: shifosuv.uz", reply_markup=menu)
 
-# suvni o'rni
-#    await message.answer("link", reply_markup=ReplyKeyboardRemove())
-# @dp.message_handler(text='Pompa')
-# async def send_link(message: Message):
-#     await message.answer("pompa rasmi va info jo'natilib miqdor kiritish so'raladi", reply_markup=ReplyKeyboardRemove())
-
 @dp.message_handler(text='Boshiga')
 async def send_link(message: Message):
     await message.answer("Kerakli bo'limni tanlang", reply_markup=menu)
@@ -40,5 +34,11 @@ async def send_link(message: Message):
 @dp.message_handler(text='Ortga')
 async def send_link(message: Message):
     await message.answer('Siz ortga qaytdingiz', reply_markup=menu)
+
+
+
+
+
+
 
 

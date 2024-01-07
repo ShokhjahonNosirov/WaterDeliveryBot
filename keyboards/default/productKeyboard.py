@@ -10,6 +10,9 @@ menuProduct = ReplyKeyboardMarkup(
             KeyboardButton(text="Ortga"),
             KeyboardButton(text="Boshiga"),
         ],
+        [
+            KeyboardButton(text="🛒Savat"),
+        ],
     ],
     resize_keyboard=True
 )

@@ -19,7 +19,6 @@ menuSuv = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text="Ortga"),
-            KeyboardButton(text="Boshiga"),
         ]
     ],
     resize_keyboard=True

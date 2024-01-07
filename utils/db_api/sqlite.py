@@ -34,6 +34,8 @@ class Database:
             Name varchar(255) NOT NULL,
             email varchar(255),
             language varchar(3),
+            suv varchar(255),
+            pompa varchar(255),
             PRIMARY KEY (id)
             );
 """
@@ -46,13 +48,13 @@ class Database:
         ])
         return sql, tuple(parameters.values())
 
-    def add_user(self, id: int, name: str, email: str = None, language: str = 'uz'):
+    def add_user(self, id: int, name: str, email: str = None, suv: str = None, pompa: str = None, language: str = 'uz'):
         # SQL_EXAMPLE = "INSERT INTO Users(id, Name, email) VALUES(1, 'John', 'John@gmail.com')"
 
         sql = """
-        INSERT INTO Users(id, Name, email, language) VALUES(?, ?, ?, ?)
+        INSERT INTO Users(id, Name, email, suv, pompa, language) VALUES(?, ?, ?, ?, ?, ?)                                    
         """
-        self.execute(sql, parameters=(id, name, email, language), commit=True)
+        self.execute(sql, parameters=(id, name, email, suv, pompa, language), commit=True)
 
     def select_all_users(self):
         sql = """
@@ -81,6 +83,33 @@ class Database:
     def delete_users(self):
         self.execute("DELETE FROM Users WHERE TRUE", commit=True)
 
+    # biz qo'shadigan kod
+
+    def add_savat_suv(self, suv, id):
+
+        sql = f"""
+        UPDATE Users SET suv=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(suv, id), commit=True)
+
+    def add_savat_pompa(self, pompa, id):
+
+        sql = f"""
+        UPDATE Users SET pompa=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(pompa, id), commit=True)
+
+    def get_suv(self, id):
+        sql = f"""
+        SELECT suv FROM Users WHERE id=?
+        """
+        return self.execute(sql, parameters=(id,), fetchone=True)
+
+    def get_pompa(self, id):
+        sql = f"""
+        SELECT pompa FROM Users WHERE id=?
+        """
+        return self.execute(sql, parameters=(id,), fetchone=True)
 
 def logger(statement):
     print(f"""

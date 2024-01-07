@@ -7,7 +7,7 @@ from keyboards.default.suvorderKeyboard import SuvOrderMenu
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from states.suvState import SuvState
-from loader import dp
+from loader import dp, db
 
 #savat_msg = "123"
 savat={}
@@ -31,31 +31,25 @@ async def send_link(message: Message, state: FSMContext):
 
 @dp.message_handler(state=SuvState.suv)
 async def send_link(message: Message, state: FSMContext):
-    await message.answer(
-        f"Savatga qo'shildi: \n\n-Suv \n\n10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm \n\nBuyurtma berish uchun Savat tugmasini bosing!\n\nQo'shimcha mahsulotlar sotib olish uchun Ortga tugmasini bosing.",
-        reply_markup=SuvOrderMenu)
-    suv_zakaz = f"10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm"
-    await state.update_data(
-        {"suv": suv_zakaz}
-    )
-    data = await state.get_data()
-    # print(type(data))
-    # print(data)
-    suv = data.get("suv")
-    savat_msg = "Savat:\n"
-    savat_msg += f"Suv - {suv}\n"
-    await message.answer(savat_msg)
-
-
-    await state.finish()
-
-    return data
+    print(message)
+    if message.text != "Savat":
+        print(message)
+        await message.answer(
+            f"Savatga qo'shildi: \n\n-Suv \n\n10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm \n\nBuyurtma berish uchun Savat tugmasini bosing!\n\nQo'shimcha mahsulotlar sotib olish uchun Ortga tugmasini bosing.",
+            reply_markup=SuvOrderMenu)
+        suv_zakaz = f"10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm"
+        db.add_savat_suv(suv=suv_zakaz, id=message.from_user.id)
+        await state.finish()
+    else:
+        await state.finish()
 
 
 
-def savat(data):
-    print(data)
-# savat(data)
+
+
+
+
+
 
 # @dp.message_handler(text='suv nimadir', state=SuvState.suv)
 # async def send_link(message: Message, state: FSMContext):
