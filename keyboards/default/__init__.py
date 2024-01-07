@@ -4,3 +4,4 @@ from . import startKeyboard
 from . import suvKeyboard
 from . import pompaKeyboard
 from . import suvorderKeyboard
+from . import savatKeyboard
