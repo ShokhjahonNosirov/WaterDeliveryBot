@@ -35,7 +35,7 @@ async def send_link(message: Message, state: FSMContext):
     if message.text != "Savat":
         print(message)
         await message.answer(
-            f"Savatga qo'shildi: \n\n-Suv \n\n10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm \n\nBuyurtma berish uchun Savat tugmasini bosing!\n\nQo'shimcha mahsulotlar sotib olish uchun Ortga tugmasini bosing.",
+            f"Savatga qo'shildi: \n\n<b>-Suv</b> \n\n10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm \n\nBuyurtma berish uchun 🛒Savat tugmasini bosing!\n\nQo'shimcha mahsulotlar sotib olish uchun Ortga tugmasini bosing.",
             reply_markup=SuvOrderMenu)
         suv_zakaz = f"10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm"
         db.add_savat_suv(suv=suv_zakaz, id=message.from_user.id)

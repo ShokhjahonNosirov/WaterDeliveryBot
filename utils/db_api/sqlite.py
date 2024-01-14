@@ -111,6 +111,13 @@ class Database:
         """
         return self.execute(sql, parameters=(id,), fetchone=True)
 
+    def delete_suv(self, id):
+        self.execute("UPDATE Users SET suv = NULL WHERE id = ?", (id,), commit=True)
+
+    def delete_pompa(self, id):
+        self.execute("UPDATE Users SET pompa = NULL WHERE id = ?", (id,), commit=True)
+
+
 def logger(statement):
     print(f"""
 _____________________________________________________        

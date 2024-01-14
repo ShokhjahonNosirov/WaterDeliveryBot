@@ -6,5 +6,6 @@ from . import menu
 from . import savat
 from . import suv
 from . import pompa
+from .import buyurtma
 from . import echo
 

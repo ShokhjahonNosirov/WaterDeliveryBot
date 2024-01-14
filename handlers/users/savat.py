@@ -16,6 +16,7 @@ async def send_link(message: Message):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     added_buttons = set()  # to not repeat the same button
     msg = "<b>🛒Savat:</b>\n\n"
+    print(db.get_suv(message.from_user.id)[0])
     suv = db.get_suv(message.from_user.id)[0]
     if suv and suv is not None:
         keyboard.add(KeyboardButton("🚚 Buyurtma berish"))
@@ -38,6 +39,16 @@ async def send_link(message: Message):
         await message.answer(f"Savat bo'sh", reply_markup=keyboard)
 
 
+@dp.message_handler(text="➖ Suvni o'chirish")
+async def send_link(message: Message):
+    db.delete_suv(id=message.from_user.id)
+    await message.answer(f"Suv o'chirildi", reply_markup=menuProduct)
+
+
+@dp.message_handler(text="➖ Pompani o'chirish")
+async def send_link(message: Message):
+    db.delete_pompa(id=message.from_user.id)
+    await message.answer(f"Pompa o'chirildi", reply_markup=menuProduct)
 
 
 

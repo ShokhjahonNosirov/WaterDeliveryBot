@@ -32,9 +32,9 @@ async def send_link(message: Message, state: FSMContext):
 @dp.message_handler(state=PompaState.pompa)
 async def send_link(message: Message, state: FSMContext):
     if message.text.isdigit(): # != "Savat" or message.text != "Boshiga":
-        print("Jinni >", message.text)
+        print("Xato qiymat kiritildi", message.text)
         await message.answer(
-            f"Savatga qo'shildi: \n\n-Pompa \n\n70.000*{int(message.text)}=<b>{70000 * int(message.text)}</b> so'm \n\nBuyurtma berish uchun Savat tugmasini bosing!\n\nQo'shimcha mahsulotlar sotib olish uchun Ortga tugmasini bosing.",
+            f"Savatga qo'shildi: \n\n<b>-Pompa</b> \n\n70.000*{int(message.text)}=<b>{70000 * int(message.text)}</b> so'm \n\nBuyurtma berish uchun 🛒Savat tugmasini bosing!\n\nQo'shimcha mahsulotlar sotib olish uchun Ortga tugmasini bosing.",
             reply_markup=SuvOrderMenu)
         pompa_zakaz = f"70.000*{int(message.text)}=<b>{70000 * int(message.text)}</b> so'm"
         db.add_savat_pompa(pompa=pompa_zakaz, id=message.from_user.id)
