@@ -9,8 +9,7 @@ from aiogram.dispatcher import FSMContext
 from states.suvState import SuvState
 from loader import dp, db
 
-#savat_msg = "123"
-savat={}
+
 @dp.message_handler(text='💧 Suv', state=None)
 async def send_link(message: Message):
     photo_id_suv = 'AgACAgIAAxkBAAIKYGKsCbY_tvwWHQtbPRU-HGUqk-grAAJawDEbdsZgScMW9g7oj0yvAQADAgADcwADJAQ'
@@ -31,9 +30,9 @@ async def send_link(message: Message, state: FSMContext):
 
 @dp.message_handler(state=SuvState.suv)
 async def send_link(message: Message, state: FSMContext):
-    print(message)
+    # print(message)
     if message.text != "Savat":
-        print(message)
+        # print(message)
         await message.answer(
             f"Savatga qo'shildi: \n\n<b>-Suv</b> \n\n10.000*{int(message.text)}=<b>{10000 * int(message.text)}</b> so'm \n\nBuyurtma berish uchun 🛒Savat tugmasini bosing!\n\nQo'shimcha mahsulotlar sotib olish uchun Ortga tugmasini bosing.",
             reply_markup=SuvOrderMenu)
@@ -42,14 +41,6 @@ async def send_link(message: Message, state: FSMContext):
         await state.finish()
     else:
         await state.finish()
-
-
-
-
-
-
-
-
 
 # @dp.message_handler(text='suv nimadir', state=SuvState.suv)
 # async def send_link(message: Message, state: FSMContext):
