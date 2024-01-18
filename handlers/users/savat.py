@@ -2,7 +2,8 @@ from aiogram.dispatcher.filters import Command, Text
 from aiogram.types import Message, ReplyKeyboardRemove
 from keyboards.default.menuKeyboard import menu
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-
+from aiogram.dispatcher import FSMContext
+from states.orderState import OrderState
 from keyboards.default.productKeyboard import menuProduct
 from keyboards.default.suvKeyboard import menuSuv
 from states.personalData import PersonalData
@@ -23,6 +24,7 @@ async def send_link(message: Message):
         added_buttons.add("🚚 Buyurtma berish")
         keyboard.add(KeyboardButton("➖ Suvni o'chirish"))
         msg += f"<b>-Suv</b>\n\n{suv}\n\n"  # 1-savat manimcha shu yerda tugayapti
+        # await OrderState.contact.set()
     # print(suv)
     pompa = db.get_pompa(message.from_user.id)[0]
     # print(pompa)
@@ -31,6 +33,7 @@ async def send_link(message: Message):
             keyboard.add(KeyboardButton("🚚 Buyurtma berish"))
         keyboard.add(KeyboardButton("➖ Pompani o'chirish"))
         msg += f"<b>-Pompa</b>\n\n{pompa}\n\n"
+        # await OrderState.contact.set()
     if msg != "<b>🛒Savat:</b>\n\n":
         keyboard.add(KeyboardButton("Ortga"))
         await message.answer(msg, reply_markup=keyboard)
