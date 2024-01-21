@@ -32,10 +32,13 @@ class Database:
         CREATE TABLE Users (
             id int NOT NULL,
             Name varchar(255) NOT NULL,
-            email varchar(255),
             language varchar(3),
             suv varchar(255),
             pompa varchar(255),
+            tel varchar(255),
+            manzil varchar(300),
+            idish varchar(255),
+            izoh varchar(300),
             PRIMARY KEY (id)
             );
 """
@@ -48,13 +51,15 @@ class Database:
         ])
         return sql, tuple(parameters.values())
 
-    def add_user(self, id: int, name: str, email: str = None, suv: str = None, pompa: str = None, language: str = 'uz'):
+    def add_user(self, id: int, name: str, suv: str = None, pompa: str = None,
+                 tel: str = None, manzil: str = None, idish: str = None,
+                 izoh: str = None, language: str = 'uz'):
         # SQL_EXAMPLE = "INSERT INTO Users(id, Name, email) VALUES(1, 'John', 'John@gmail.com')"
 
         sql = """
-        INSERT INTO Users(id, Name, email, suv, pompa, language) VALUES(?, ?, ?, ?, ?, ?)                                    
+        INSERT INTO Users(id, Name, suv, pompa, tel, manzil, idish, izoh, language) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)                                    
         """
-        self.execute(sql, parameters=(id, name, email, suv, pompa, language), commit=True)
+        self.execute(sql, parameters=(id, name, suv, pompa, tel, manzil, idish, izoh, language), commit=True)
 
     def select_all_users(self):
         sql = """
@@ -72,18 +77,38 @@ class Database:
     def count_users(self):
         return self.execute("SELECT COUNT(*) FROM Users;", fetchone=True)
 
-    def update_user_email(self, email, id):
-        # SQL_EXAMPLE = "UPDATE Users SET email=mail@gmail.com WHERE id=12345"
-
-        sql = f"""
-        UPDATE Users SET email=? WHERE id=?
-        """
-        return self.execute(sql, parameters=(email, id), commit=True)
-
     def delete_users(self):
         self.execute("DELETE FROM Users WHERE TRUE", commit=True)
 
     # biz qo'shadigan kod
+
+    def add_tel(self, tel, id):
+
+        sql = f"""
+        UPDATE Users SET tel=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(tel, id), commit=True)
+
+    def add_manzil(self, manzil, id):
+
+        sql = f"""
+        UPDATE Users SET manzil=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(manzil, id), commit=True)
+
+    def add_idish(self, idish, id):
+
+        sql = f"""
+        UPDATE Users SET idish=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(idish, id), commit=True)
+
+    def add_izoh(self, izoh, id):
+
+        sql = f"""
+        UPDATE Users SET izoh=? WHERE id=?
+        """
+        return self.execute(sql, parameters=(izoh, id), commit=True)
 
     def add_savat_suv(self, suv, id):
 
@@ -111,6 +136,30 @@ class Database:
         """
         return self.execute(sql, parameters=(id,), fetchone=True)
 
+    def get_tel(self, id):
+        sql = f"""
+        SELECT tel FROM Users WHERE id=?
+        """
+        return self.execute(sql, parameters=(id,), fetchone=True)
+
+    def get_manzil(self, id):
+        sql = f"""
+        SELECT manzil FROM Users WHERE id=?
+        """
+        return self.execute(sql, parameters=(id,), fetchone=True)
+
+    def get_idish(self, id):
+        sql = f"""
+        SELECT idish FROM Users WHERE id=?
+        """
+        return self.execute(sql, parameters=(id,), fetchone=True)
+
+    def get_izoh(self, id):
+        sql = f"""
+        SELECT izoh FROM Users WHERE id=?
+        """
+        return self.execute(sql, parameters=(id,), fetchone=True)
+
     def delete_suv(self, id):
         self.execute("UPDATE Users SET suv = NULL WHERE id = ?", (id,), commit=True)
 
@@ -125,3 +174,12 @@ Executing:
 {statement}
 _____________________________________________________
 """)
+
+
+    # def update_user_email(self, email, id):
+    #     # SQL_EXAMPLE = "UPDATE Users SET email=mail@gmail.com WHERE id=12345"
+    #
+    #     sql = f"""
+    #     UPDATE Users SET email=? WHERE id=?
+    #     """
+    #     return self.execute(sql, parameters=(email, id), commit=True)
