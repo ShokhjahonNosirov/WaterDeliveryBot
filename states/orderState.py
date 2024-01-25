@@ -6,6 +6,7 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 class OrderState(StatesGroup):
     # Foydalanuvchi buyerda 3 ta holatdan o'tishi kerak
     # bittasidan o'tsa ikkinchiga o'tadi
+    narx = State()
     contact = State()  # tel
     manzil = State()
     idish = State()  # Tel raqami

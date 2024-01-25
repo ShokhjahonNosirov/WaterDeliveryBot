@@ -12,13 +12,13 @@ from loader import dp, db
 
 
 @dp.message_handler(text='🛒Savat')
-async def send_link(message: Message):
-
+async def send_link(message: Message, state: FSMContext):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     added_buttons = set()  # to not repeat the same button
     msg = "<b>🛒Savat:</b>\n\n"
     # print(db.get_suv(message.from_user.id)[0])
     suv = db.get_suv(message.from_user.id)[0]
+
     if suv and suv is not None:
         keyboard.add(KeyboardButton("🚚 Buyurtma berish"))
         added_buttons.add("🚚 Buyurtma berish")
@@ -33,7 +33,7 @@ async def send_link(message: Message):
             keyboard.add(KeyboardButton("🚚 Buyurtma berish"))
         keyboard.add(KeyboardButton("➖ Pompani o'chirish"))
         msg += f"<b>-Pompa</b>\n\n{pompa}\n\n"
-        # await OrderState.contact.set()
+    await OrderState.narx.set()
     if msg != "<b>🛒Savat:</b>\n\n":
         keyboard.add(KeyboardButton("Ortga"))
         await message.answer(msg, reply_markup=keyboard)
@@ -42,19 +42,25 @@ async def send_link(message: Message):
         await message.answer(f"Savat bo'sh", reply_markup=keyboard)
 
 
-@dp.message_handler(text="➖ Suvni o'chirish")
-async def send_link(message: Message):
+
+@dp.message_handler(text="➖ Suvni o'chirish", state=OrderState.narx)
+async def send_link(message: Message, state: FSMContext):
     db.delete_suv(id=message.from_user.id)
     await message.answer(f"Suv o'chirildi", reply_markup=menuProduct)
+    await state.finish()
 
 
-@dp.message_handler(text="➖ Pompani o'chirish")
-async def send_link(message: Message):
+@dp.message_handler(text="➖ Pompani o'chirish", state=OrderState.narx)
+async def send_link(message: Message, state: FSMContext):
     db.delete_pompa(id=message.from_user.id)
     await message.answer(f"Pompa o'chirildi", reply_markup=menuProduct)
+    await state.finish()
 
 
-
+@dp.message_handler(text="Ortga", state=OrderState.narx)
+async def send_link(message: Message, state: FSMContext):
+    await message.answer("Siz Ortga qaytdingiz", reply_markup=menuProduct)
+    await state.finish()
 
 # Pastdagi hech narsa
 
