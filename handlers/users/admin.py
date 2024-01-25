@@ -12,8 +12,7 @@ from aiogram.utils.exceptions import TelegramAPIError
 #     users = db.select_all_users()
 #     print(users[0][0])
 #     await message.answer(users)
-
-block = set()
+# block = set()
 
 
 @dp.message_handler(text="/mijozlarim", user_id=ADMINS)
@@ -31,7 +30,7 @@ async def send_ad_to_all(message: types.Message):
                 # print(block)
     count = db.count_users()[0]
     msg = f"Bazada ayni damda {count} ta foydalanuvchi bor."
-    await bot.send_message(chat_id=-4128658827, text=msg)
+    await bot.send_message(chat_id=-4166714643, text=msg)
 
 
 

@@ -10,4 +10,5 @@ class OrderState(StatesGroup):
     manzil = State()
     idish = State()  # Tel raqami
     izoh = State()
+    final = State()
     # o'ziga message jo'natib buyurtmani tasdiqlash so'raladi
