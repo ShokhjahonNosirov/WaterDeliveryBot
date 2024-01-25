@@ -166,6 +166,15 @@ class Database:
     def delete_pompa(self, id):
         self.execute("UPDATE Users SET pompa = NULL WHERE id = ?", (id,), commit=True)
 
+    def delete_user(self, id):
+        self.execute("DELETE FROM Users WHERE id = ?", (id,), commit=True)
+
+    def get_all_ids(self):
+        sql = """
+        SELECT id FROM Users
+        """
+        return self.execute(sql, fetchall=True)
+
 
 def logger(statement):
     print(f"""

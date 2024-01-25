@@ -18,9 +18,10 @@ async def bot_start(message: types.Message):
                     name=name)
     except sqlite3.IntegrityError as err:
         await bot.send_message(chat_id=ADMINS[0], text=err)
-
+    # all_users = db.get_all_ids()
+    # print(all_users)
     await message.answer(f"Salom, {message.from_user.full_name}!\n", reply_markup=menu)
     count = db.count_users()[0]
     msg = f"{message.from_user.full_name} bazaga qo'shildi.\nBazada {count} ta foydalanuvchi bor."
-    await bot.send_message(chat_id=ADMINS[0], text=msg)
-    #await message.answer("Telefoningiz va Manzilingizni yuboring", reply_markup=menuStart)
+    await bot.send_message(chat_id=-4128658827, text=msg)
+    # await message.answer("Telefoningiz va Manzilingizni yuboring", reply_markup=menuStart)

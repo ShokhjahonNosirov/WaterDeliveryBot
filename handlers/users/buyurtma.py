@@ -131,7 +131,7 @@ async def send_link(message: Message, state: FSMContext):
     f_izoh = data.get("izoh")
     msg = f"{msg}\nIzoh: {f_izoh}\n"
     await message.answer(msg, reply_markup=keyboard)
-    await bot.send_message(chat_id='your_channel_id', text=msg, reply_markup=keyboard)
+    await bot.send_message(chat_id='-4128658827', text=msg)
     # print(message.text)
     await state.finish()
     # await OrderState.next()
