@@ -120,6 +120,7 @@ async def send_link_contact(message: Message, state: FSMContext):
 @dp.message_handler(state=OrderState.manzil)
 async def send_link(message: Message, state: FSMContext):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard.add(KeyboardButton("0️⃣ Idish yo'q"))
     keyboard.add(KeyboardButton("Ortga"))
     if message.text == "Ortga":
         await message.answer("Siz Ortga qaytdingiz", reply_markup=menuProduct)
@@ -139,7 +140,7 @@ async def send_link(message: Message, state: FSMContext):
         f_manzil = data.get("manzil")
         msg = data.get("msg")
         msg = f"{msg}Manzil: {f_manzil}\n"
-        await message.answer(f"{msg}\nQaytadigan idish sonini kiriting.\nIdish bo'lmasa 0 raqamini yuboring", reply_markup=keyboard)
+        await message.answer(f"{msg}\nQaytadigan idish sonini kiriting.\nIdish bo'lmasa 0️⃣ Idish yo'q tugmasini bosing", reply_markup=keyboard)
         # print(message.text)
         # await state.finish()
         await state.update_data(
